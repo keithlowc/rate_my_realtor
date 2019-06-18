@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Realty Agency</th>
+                <th scope="col">Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in data %}
+                <tr>
+                    <td><a href="{% url 'agent_detailed_view' person.id %}"> {{ person.name }} </a> </td>
+                    <td>{{ person.last_name }}</td>
+                    <td>{{ person.email }}</td>
+                    <td>{{ person.company }}</td>
+                    <td>{{ person.rating }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

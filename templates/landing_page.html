@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="intro" class="view">
+        <div class="mask">
+            <div class="mask rgba-black-strong">
+
+                <!-- Heading -->
+                <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Rate My Realtor</h2>
+
+                <!-- Divider -->
+                <hr class="hr-light">
+
+                <!-- Description -->
+                <h4 class="white-text my-4">The place where you can rate real estate agents and get to know them.</h4>
+                
+                <a class="btn btn-dark" href="{% url 'list_agents' %}">Rate A Realtor<i class="fas fa-book ml-2"></i></a>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

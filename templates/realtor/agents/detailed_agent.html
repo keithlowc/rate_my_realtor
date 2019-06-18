@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        {% if agent_personal_info %}
+            <div class="row border-bottom">
+                <div class="col-lg-4">
+                    <div class="container pb-4">
+                        <div class="row justify-content-center">
+                            <img src="https://vignette.wikia.nocookie.net/caramella-girls/images/9/99/Blankpfp.png/revision/latest?cb=20190122015011" width="46%" border-radius="50%">
+                            
+                        </div>
+                        <div class="row justify-content-center pt-4">
+                            <span class="badge badge-primary">Rating: {{ agent_personal_info.rating }}</span>
+                        </div>
+
+                        <div class="mt-2 text-center">
+                            <h1>
+                                <b>{{ agent_personal_info.name }} {{ agent_personal_info.last_name }}</b>
+                            </h1>
+                            <h4>{{ agent_personal_info.email }}</h4>
+                            <h4>{{ agent_personal_info.company }}</h4>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-8">
+                    <div class="container pb-4">
+                        <div class="pb-4 mt-4 mb-2 border-bottom text-center">
+                            <h2>About Me: </h2>
+                            
+                        </div>
+                        <div class="mt-4">
+                            {{ agent_personal_info.about }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        {% endif %}
+
+        {% if agent_data %}
+            {% for data in agent_data %}
+                <div class="row mt-4 pb-4 border-bottom">
+                    <div class="col-lg-4">
+                        <div class="container">
+                            <h1>Some user wrote</h2>
+                            <span class="badge badge-info">Rating: {{ data.rating }} </span>
+                            <p><b>Date:</b> {{ data.created_at }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="container">
+                            <p>{{ data.comments }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% endif %}
+
+        <div class="row mt-2 mb-2">
+            <div class="col-lg-4 offset-lg-4 text-center">
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'list_agents' %}">Rate this realtor</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

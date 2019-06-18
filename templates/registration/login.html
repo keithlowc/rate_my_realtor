@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+    
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Hi {{ user.username }}</h1>
+        <a class="btn btn-dark" href="{% url 'list_agents' %}">Start Rating</a>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    {% endif %}
+{% endblock %}

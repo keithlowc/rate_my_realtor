@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'realtor',
     
     #Authentication
-    'users',
+    #'users',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'landing_page'
 LOGOUT_REDIRECT_URL = 'landing_page'
+
+# Password Reset
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+
+####### New stuff
+
+AUTH_USER_MODEL = 'users.CustomUser'

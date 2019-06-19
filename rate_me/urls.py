@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Landing Page
-    #path('', LadingPage.lading_page, name='landing_page'),
     path('', TemplateView.as_view(template_name='landing_page.html'), name='landing_page'),
 
     # Authentication

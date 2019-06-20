@@ -5,7 +5,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 from .models import Agent, AgentsData
-from .forms import AddAgentForm
+from .forms import AddAgentForm, AddAgentDataForm
+
+from users.models import CustomUser
 
 class AgentView(View):
 
@@ -22,7 +24,22 @@ class AgentView(View):
     def get_agent(request, pk):
         agent_personal_info = Agent.objects.get(id=pk)
         agent_data = AgentsData.objects.filter(agent=agent_personal_info)
-        form = AddAgentForm()
+        user = request.user
+        
+        if request.method == 'POST':
+            form = AddAgentDataForm(request.POST)
+
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.agent = agent_personal_info
+                comment.created_by = user
+                comment.save()
+
+                messages.success(request, 'Succesfully added comment')
+                return redirect('agent_detailed_view', pk)
+        else:
+            form = AddAgentDataForm()
+
         context = {
             'agent_personal_info': agent_personal_info,
             'agent_data': agent_data,
@@ -32,6 +49,7 @@ class AgentView(View):
 
 
 class AgentForm():
+
     def add_agent(request):
         if request.method == 'POST':
             form = AddAgentForm(request.POST)
@@ -47,3 +65,8 @@ class AgentForm():
         }
         
         return render(request, 'realtor/agents/forms/add_agent_form.html', context)
+    
+    
+
+
+    

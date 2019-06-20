@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import CustomUser
 # Create your models here.
 
 class RealtorAgency(models.Model):
@@ -29,11 +29,13 @@ class Agent(models.Model):
 
 class AgentsData(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
-    comments = models.CharField(
-        max_length=250, blank=False, null=False, default=None)
+    comments = models.TextField(
+        max_length=350, blank=False, null=False, default=None)
     rating = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    #created_by = models.something
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
+                                    related_name='user_created_by',
+                                    default=None, null=True, blank=True)
 
     def __str__(self):
         return f'{self.agent.name} {self.agent.last_name} - Rated: {self.rating}'

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
     <div class="container">
@@ -45,7 +47,7 @@
                 <div class="row mt-4 pb-4 border-bottom">
                     <div class="col-lg-4">
                         <div class="container">
-                            <h1>Some user wrote</h2>
+                            <h5>{{ data.created_by.username }}</h5>
                             <span class="badge badge-info">Rating: {{ data.rating }} </span>
                             <p><b>Date:</b> {{ data.created_at }}</p>
                         </div>
@@ -60,11 +62,29 @@
             {% endfor %}
         {% endif %}
 
-        <div class="row mt-2 mb-2">
-            <div class="col-lg-4 offset-lg-4 text-center">
-                <a class="btn btn-outline-primary btn-lg" href="{% url 'list_agents' %}">Rate this realtor</a>
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="row mt-2 mb-2">
+                    <div class="col-lg-4 offset-lg-4 text-center">
+                        <button type="submit" class="btn btn-success">Rate Realtor</button>
+                        {% comment %} <a type="submit" class="btn btn-outline-primary btn-lg" href="{% url 'list_agents' %}">Rate this realtor</a> {% endcomment %}
+                    </div>
+                </div>
+            </form>
+
+
+        {% else %}
+            <div class="row mt-2 mb-2">
+                <div class="col-lg-4 offset-lg-4 text-center">
+                    <a class="btn btn-outline-primary btn-lg" href="{% url 'list_agents' %}">Rate this realtor</a>
+                </div>
             </div>
-        </div>
+        {% endif %}
+
+
+
     </div>
 
 

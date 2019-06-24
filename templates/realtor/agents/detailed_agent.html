@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="container">
-        {% if agent_personal_info %}
+        {% if agent %}
             <div class="row border-bottom">
                 <div class="col-lg-4">
                     <div class="container pb-4">
@@ -14,15 +14,15 @@
                             
                         </div>
                         <div class="row justify-content-center pt-4">
-                            <span class="badge badge-primary">Rating: {{ agent_personal_info.rating }}</span>
+                            <span class="badge badge-primary">Rating: {{ agent.rating }}</span>
                         </div>
 
                         <div class="mt-2 text-center">
                             <h1>
-                                <b>{{ agent_personal_info.name }} {{ agent_personal_info.last_name }}</b>
+                                <b>{{ agent.name }} {{ agent.last_name }}</b>
                             </h1>
-                            <h4>{{ agent_personal_info.email }}</h4>
-                            <h4>{{ agent_personal_info.company }}</h4>
+                            <h4>{{ agent.email }}</h4>
+                            <h4>{{ agent.company }}</h4>
                         </div>
                     </div>
 
@@ -34,7 +34,7 @@
                             
                         </div>
                         <div class="mt-4">
-                            {{ agent_personal_info.about }}
+                            {{ agent.about }}
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         {% else %}
             <div class="row mt-2 mb-2">
                 <div class="col-lg-4 offset-lg-4 text-center">
-                    <a class="btn btn-outline-primary btn-lg" href="{% url 'list_agents' %}">Rate this realtor</a>
+                    <a class="btn btn-outline-primary btn-lg" href="{% url 'rate_me_login' %}">Rate this realtor</a>
                 </div>
             </div>
         {% endif %}

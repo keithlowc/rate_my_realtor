@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #Background Tasks
+
+    'background_task',
+
     #Forms
     'crispy_forms',
 
@@ -152,6 +156,10 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 
-####### New stuff
+# Custom User model
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Django background tasks
+
+MAX_ATTEMPTS = 1

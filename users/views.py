@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView as AuthLoginView
 from django.contrib.auth import logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .forms import CustomUserCreationForm
@@ -29,7 +29,12 @@ class LoginView(SuccessMessageMixin, AuthLoginView):
 
 def logout_view(request):
     logout(request)
+    # form = AuthenticationForm()
     messages.info(request, 'Succesfully logged out!')
-    return render(request, 'landing_page.html')
+    return redirect('login')
+
+def rate_me_login(request):
+    messages.info(request, 'You need to log in or sign up before being able to rate this realtor!')
+    return redirect('login')
 
 

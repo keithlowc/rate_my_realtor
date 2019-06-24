@@ -3,11 +3,15 @@ from django.views import View
 from django.views.decorators.http import require_GET
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core import serializers
 
 from .models import Agent, AgentsData
 from .forms import AddAgentForm, AddAgentDataForm
+#from .bg_tasks import calculate_agent_rating
 
 from users.models import CustomUser
+
+import json
 
 class AgentView(View):
 
@@ -22,8 +26,8 @@ class AgentView(View):
         return render(request, 'realtor/agents/list_agents.html', context)
     
     def get_agent(request, pk):
-        agent_personal_info = Agent.objects.get(id=pk)
-        agent_data = AgentsData.objects.filter(agent=agent_personal_info)
+        agent = Agent.objects.get(id=pk)
+        agent_data = AgentsData.objects.filter(agent=agent)
         user = request.user
         
         if request.method == 'POST':
@@ -31,17 +35,30 @@ class AgentView(View):
 
             if form.is_valid():
                 comment = form.save(commit=False)
-                comment.agent = agent_personal_info
+                comment.agent = agent
                 comment.created_by = user
                 comment.save()
 
+                agent_ratings = agent_data.values('rating')
+
+                total_rating = 0
+
+                for data in agent_ratings:
+                    total_rating += float(data['rating'])
+
+                total_rating = total_rating / len(agent_ratings)
+                agent.rating = round(total_rating, 1)
+                agent.save()
+
                 messages.success(request, 'Succesfully added comment')
                 return redirect('agent_detailed_view', pk)
+            else:
+                messages.warning(request, 'Something went wrong! Please check your comment')
         else:
             form = AddAgentDataForm()
 
         context = {
-            'agent_personal_info': agent_personal_info,
+            'agent': agent,
             'agent_data': agent_data,
             'form': form,
         }
@@ -65,8 +82,9 @@ class AgentForm():
         }
         
         return render(request, 'realtor/agents/forms/add_agent_form.html', context)
-    
-    
+
+
+
 
 
     

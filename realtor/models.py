@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import CustomUser
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 # Create your models here.
 
 class RealtorAgency(models.Model):
@@ -22,7 +24,11 @@ class Agent(models.Model):
     phone_number = models.CharField(
         max_length=50, null=False, blank=False, unique=False)
     about = models.TextField(max_length=650, blank=False)
-    rating = models.FloatField()
+    rating = models.FloatField(
+        validators=[MaxValueValidator(100), MinValueValidator(0)])
+    #comment_amount = models.IntegerField()
+
+    #comment_amount = AgentsData.objects.filter(agent=agent).values('rating')
 
     def __str__(self):
         return f'{self.name} from {self.company.name}'
@@ -31,7 +37,8 @@ class AgentsData(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     comments = models.TextField(
         max_length=350, blank=False, null=False, default=None)
-    rating = models.FloatField(default=0)
+    rating = models.FloatField(
+        validators=[MaxValueValidator(100), MinValueValidator(0)])
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
                                     related_name='user_created_by',

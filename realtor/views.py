@@ -4,11 +4,11 @@ from django.views.decorators.http import require_GET
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.core import serializers
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 from .models import Agent, AgentsData
 from .forms import AddAgentForm, AddAgentDataForm
-#from .bg_tasks import calculate_agent_rating
-
 from users.models import CustomUser
 
 import json
@@ -18,9 +18,29 @@ class AgentView(View):
     @require_GET
     def list_agents(request):
         data = Agent.objects.all()
+        search_term = ''
+
+        if ('search' in request.GET) and (request.GET['search'] != ''):
+            search_term = request.GET['search']
+            full_name = search_term.split()
+            name = Q(name__icontains=full_name[0])
+
+            if len(full_name) > 1:
+                last_name = Q(last_name__icontains=full_name[1])
+                data = data.filter(name & last_name)
+            
+            data = data.filter(name)
+
+        paginator = Paginator(data, 10)
+        page = request.GET.get('page')
+        data = paginator.get_page(page)
+        get_dict_copy = request.GET.copy()
+        params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
 
         context = {
             'data': data,
+            'search_term': search_term,
+            'params': params,
         }
         
         return render(request, 'realtor/agents/list_agents.html', context)

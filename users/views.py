@@ -29,7 +29,6 @@ class LoginView(SuccessMessageMixin, AuthLoginView):
 
 def logout_view(request):
     logout(request)
-    # form = AuthenticationForm()
     messages.info(request, 'Succesfully logged out!')
     return redirect('login')
 

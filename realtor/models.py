@@ -26,10 +26,7 @@ class Agent(models.Model):
     about = models.TextField(max_length=650, blank=False)
     rating = models.FloatField(
         validators=[MaxValueValidator(100), MinValueValidator(0)])
-    #comment_amount = models.IntegerField()
-
-    #comment_amount = AgentsData.objects.filter(agent=agent).values('rating')
-
+        
     def __str__(self):
         return f'{self.name} from {self.company.name}'
 

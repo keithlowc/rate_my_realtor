@@ -77,10 +77,17 @@ class AgentView(View):
         else:
             form = AddAgentDataForm()
 
+        paginator = Paginator(agent_data, 5)
+        page = request.GET.get('page')
+        agent_data = paginator.get_page(page)
+        get_dict_copy = request.GET.copy()
+        params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
+
         context = {
             'agent': agent,
             'agent_data': agent_data,
             'form': form,
+            'params': params,
         }
         return render(request, 'realtor/agents/detailed_agent.html', context)
 

@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
-from .views import LadingPage
+from .views import LandingPage
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Landing Page
-    path('', TemplateView.as_view(template_name='landing_page.html'), name='landing_page'),
+    path('', LandingPage.show_landing_page, name='landing_page'),
 
     # Authentication
     path('users/', include('users.urls')),

@@ -13,8 +13,19 @@
 
                 <!-- Description -->
                 <h4 class="white-text my-4">The place where you can rate real estate agents and get to know them.</h4>
-                
-                <a class="btn btn-dark" href="{% url 'list_agents' %}">Rate A Realtor<i class="fas fa-book ml-2"></i></a>
+
+                <form class="form-inline my-4 my-lg-4 justify-content-left">
+                    <div class="form-group">
+                        <input
+                            class="form-control mr-lg-2 input-lg"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            name='search'
+                            value="{{search_term}}">
+                        </div>
+                    <button class="btn btn-dark my-2 my-sm-0" type="submit">Search Realtor</button>
+                </form>
                 
             </div>
         </div>

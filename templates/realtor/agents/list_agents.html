@@ -1,27 +1,68 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Realty Agency</th>
-                <th scope="col">Rating</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for person in data %}
-                <tr>
-                    <td><a href="{% url 'agent_detailed_view' person.id %}"> {{ person.name }} </a> </td>
-                    <td>{{ person.last_name }}</td>
-                    <td>{{ person.email }}</td>
-                    <td>{{ person.company }}</td>
-                    <td>{{ person.rating }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col">
+        </div>
+
+        <div class="col-12 border border-secondary rounded">
+
+            <form class="form-inline my-4 my-lg-4 justify-content-center">
+                <input
+                    class="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    name='search'
+                    value="{{search_term}}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Realty Agency</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in data %}
+                        <tr>
+                            <td><a href="{% url 'agent_detailed_view' person.id %}"> {{ person.name }} </a> </td>
+                            <td>{{ person.last_name }}</td>
+                            <td>{{ person.email }}</td>
+                            <td>{{ person.company }}</td>
+                            <td>{{ person.rating }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination mt-4 mb-4">
+                <span class="step-links">
+                    {% if data.has_previous %}
+                        <a href="?page=1&{{params}}">&laquo; first</a>
+                        <a href="?page={{ data.previous_page_number }}&{{params}}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                    </span>
+
+                    {% if data.has_next %}
+                        <a href="?page={{ data.next_page_number }}&{{params}}">next</a>
+                        <a href="?page={{ data.paginator.num_pages }}&{{params}}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="col">
+        </div>
+    
+    <div>
 
 {% endblock %}

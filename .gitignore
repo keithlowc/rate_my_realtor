@@ -1,5 +1,9 @@
 templates/static/
 
+#IGNORE AWS.txt
+
+aws_instructions.txt
+
 # Mac
 .DS_Store
 

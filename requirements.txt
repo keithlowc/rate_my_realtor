@@ -1,3 +1,5 @@
+# Django
+
 Django==2.2.2
 django-background-tasks==1.2.0
 django-cacheops==4.1
@@ -6,10 +8,12 @@ django-crispy-forms==1.7.2
 django-mysql==2.4.1
 funcy==1.12
 
-# database
+# Database
+
 mysql-connector-python==8.0.14
 mysqlclient==1.4.1
 protobuf==3.8.0
+PyMySQL==0.9.3
 pytz==2019.1
 redis==3.2.1
 six==1.12.0

@@ -35,7 +35,7 @@ SECRET_KEY = 'o&f@4phl$o4+1bg@2w^#^q)g#fnug_#b32(ag-x28&lc1l(wsv'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 if PRODUCTION:
-    Host = os.environ['RATE_MY_REALTOR_HOST']
+    Host = os.environ['RATE_MY_REALTOR_ALLOWED_HOST']
 
     DEBUG = False
 
@@ -176,7 +176,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '../templates/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, '../rate_me/static/')
 STATICFILES_DIRS = [
     BASE_DIR + '/rate_me/static',
 ]

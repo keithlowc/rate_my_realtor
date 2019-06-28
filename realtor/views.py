@@ -66,7 +66,7 @@ class AgentView(View):
                 for data in agent_ratings:
                     total_rating += float(data['rating'])
 
-                total_rating = total_rating / len(agent_ratings)
+                total_rating = total_rating / len(agent_ratings) + 1
                 agent.rating = round(total_rating, 1)
                 agent.save()
 

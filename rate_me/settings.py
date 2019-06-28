@@ -12,16 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-PRODUCTION = False
-
-try:
-    if os.environ['PRODUCTION'] == 'True':
-        print('This is Production Environment')
-        PRODUCTION = True
-except Exception as e:
-    print('Not Production Environment')
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,21 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o&f@4phl$o4+1bg@2w^#^q)g#fnug_#b32(ag-x28&lc1l(wsv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-if PRODUCTION:
-    Host = os.environ['RATE_MY_REALTOR_ALLOWED_HOST']
-
-    DEBUG = False
-
-    ALLOWED_HOSTS = [
-        Host,
-    ]
-else:
-    DEBUG = True
-
-    ALLOWED_HOSTS = [
-        'ratemyrealtor.code',
-    ]
+ALLOWED_HOSTS = [
+    'ratemyrealtor.code',
+]
 
 
 # Application definition
@@ -110,33 +90,15 @@ WSGI_APPLICATION = 'rate_me.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if PRODUCTION:
-    db_name = os.environ['RATE_MY_REALTOR_DB_NAME']
-    db_user = os.environ['RATE_MY_REALTOR_DB_USER']
-    db_password = os.environ['RATE_MY_REALTOR_DB_PASSWORD']
-    db_host = os.environ['RATE_MY_REALTOR_DB_HOST']
-    db_port = os.environ['RATE_MY_REALTOR_DB_PORT']
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': db_name,
-            'USER': db_user,
-            'PASSWORD': db_password,
-            'PORT': db_port,
-            'HOST': db_host,
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rate_my_realtor',
+        'USER': 'web',
+        'PASSWORD': 'root',
+        'HOST': 'database',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'rate_my_realtor',
-            'USER': 'web',
-            'PASSWORD': 'root',
-            'HOST': 'database',
-        }
-    }
+}
 
 
 # Password validation

@@ -17,7 +17,7 @@ class AgentView(View):
 
     @require_GET
     def list_agents(request):
-        data = Agent.objects.all()
+        data = Agent.objects.order_by('name')
         search_term = ''
 
         if ('search' in request.GET) and (request.GET['search'] != ''):
@@ -90,6 +90,25 @@ class AgentView(View):
             'params': params,
         }
         return render(request, 'realtor/agents/detailed_agent.html', context)
+    
+    def sort_agents(request, keyword):
+
+        if keyword == 'rating':
+            data = Agent.objects.order_by('-' + keyword)
+        else:
+            data = Agent.objects.order_by(keyword)
+        
+        paginator = Paginator(data, 5)
+        page = request.GET.get('page')
+        data = paginator.get_page(page)
+        get_dict_copy = request.GET.copy()
+        params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
+
+        context = {
+            'data': data,
+            'params': params,
+        }
+        return render(request, 'realtor/agents/list_agents.html', context)
 
 
 class AgentForm():

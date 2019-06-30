@@ -9,24 +9,28 @@
 
             <div class="row">
 
-                    <div class="col">
-                        <div class="btn-group btn-lg my-4 my-lg-4 pt-0">
-                            <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-sort-amount-asc fa-lg pr-2"></i> Sort By:
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'sort_agents' 'name'%}">Name</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'sort_agents' 'last_name'%}">Last Name</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'sort_agents' 'email'%}">Email</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'sort_agents' 'company'%}">Realty Agency</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'sort_agents' 'rating'%}">Rating</a>
+                    {% if not search %}
+                        <div class="col">
+                            <div class="btn-group btn-lg my-4 my-lg-4 pt-0">
+                                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-sort-amount-asc fa-lg pr-2"></i> Sort By:
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'sort_agents' 'name' %}">Name</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'sort_agents' 'last_name'%}">Last Name</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'sort_agents' 'email'%}">Email</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'sort_agents' 'company'%}">Realty Agency</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'sort_agents' 'rating'%}">Rating</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="col"></div>
+                    {% endif %}
 
                     <div class="col">
                         <form class="form-inline my-4 my-lg-4 justify-content-center">

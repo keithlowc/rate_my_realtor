@@ -19,17 +19,21 @@ class AgentView(View):
     def list_agents(request):
         data = Agent.objects.order_by('name')
         search_term = ''
+        search = False
 
         if ('search' in request.GET) and (request.GET['search'] != ''):
+            search = True
             search_term = request.GET['search']
             full_name = search_term.split()
+
             name = Q(name__icontains=full_name[0])
+            last_name = Q(last_name__icontains=full_name[0])
 
             if len(full_name) > 1:
                 last_name = Q(last_name__icontains=full_name[1])
                 data = data.filter(name & last_name)
             
-            data = data.filter(name)
+            data = data.filter(name | last_name)
 
         paginator = Paginator(data, 10)
         page = request.GET.get('page')
@@ -41,6 +45,7 @@ class AgentView(View):
             'data': data,
             'search_term': search_term,
             'params': params,
+            'search': search,
         }
         
         return render(request, 'realtor/agents/list_agents.html', context)
@@ -92,11 +97,22 @@ class AgentView(View):
         return render(request, 'realtor/agents/detailed_agent.html', context)
     
     def sort_agents(request, keyword):
-
         if keyword == 'rating':
             data = Agent.objects.order_by('-' + keyword)
         else:
             data = Agent.objects.order_by(keyword)
+        
+        if ('search' in request.GET) and (request.GET['search'] != ''):
+            search_term = request.GET['search']
+            full_name = search_term.split()
+            name = Q(name__icontains=full_name[0])
+
+            if len(full_name) > 1:
+                last_name = Q(last_name__icontains=full_name[1])
+                data = data.filter(name & last_name)
+
+            data = data.filter(name)
+            print('Data ', data)
         
         paginator = Paginator(data, 5)
         page = request.GET.get('page')

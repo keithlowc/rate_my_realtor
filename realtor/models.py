@@ -35,7 +35,7 @@ class AgentsData(models.Model):
     comments = models.TextField(
         max_length=350, blank=False, null=False, default=None)
     rating = models.FloatField(
-        validators=[MaxValueValidator(100), MinValueValidator(0)])
+        validators=[MaxValueValidator(100), MinValueValidator(0)], default=100)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
                                     related_name='user_created_by',

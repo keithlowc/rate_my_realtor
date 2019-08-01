@@ -1,5 +1,6 @@
-# Django
-
+beautifulsoup4==4.8.0
+certifi==2019.6.16
+chardet==3.0.4
 Django==2.2.2
 django-background-tasks==1.2.0
 django-cacheops==4.1
@@ -7,15 +8,21 @@ django-compat==1.0.15
 django-crispy-forms==1.7.2
 django-mysql==2.4.1
 funcy==1.12
-
-# Database
-
+get==2019.4.13
+idna==2.8
 mysql-connector-python==8.0.14
 mysqlclient==1.4.1
+post==2019.4.13
 protobuf==3.8.0
+public==2019.4.13
 PyMySQL==0.9.3
 pytz==2019.1
+query-string==2019.4.13
 redis==3.2.1
+request==2019.4.13
+requests==2.22.0
 six==1.12.0
+soupsieve==1.9.2
 SQLAlchemy==1.2.17
 sqlparse==0.3.0
+urllib3==1.25.3

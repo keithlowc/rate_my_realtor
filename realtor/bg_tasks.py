@@ -1,24 +1,36 @@
-from background_task import background
-from realtor.models import Agent, AgentsData
+# from django.shortcuts import HttpResponse
+# from background_task import background
+# from realtor.models import Agent, AgentsData, Background
 
-@background(schedule=1)
-def calculate_agent_rating(agent_id):
-    print('Starting calculate_agent_rating()')
-    
-    agent = Agent.objects.get(id=agent_id)
-    agent_ratings = AgentsData.objects.filter(agent=agent).values('rating')
-    total_rating = 0
+# import requests
+# from bs4 import BeautifulSoup
 
-    if len(agent_ratings) != 0:
+# import json
 
-        for data in agent_ratings:
-            total_rating += float(data['rating'])
+# @background(schedule=5)
+# def hello(name):
+#     print('hello')
+#     try:
+#         tweet = Background(tweet_id=1, tweet_text='hello world')
+#         tweet.save()
+#     except Exception as e:
+#         print(e)
 
-        total_rating = total_rating / len(agent_ratings)
 
-        agent.rating = round(total_rating, 1)
+# @background(schedule=10)
+# def scrape():
+#     url = 'https://twitter.com/TheOnion'
+#     data = requests.get(url)
+#     html = BeautifulSoup(data.text, 'html.parser')
+#     timeline = html.select('#timeline li.stream-item')
+#     for tweet in timeline:
+#         tweet_id = tweet['data-item-id']
+#         tweet_text = tweet.select('p.tweet-text')[0].get_text()
 
-        agent.save()
+#         tweet = Background(tweet_id=tweet_id, tweet_text=tweet_text)
+#         tweet.save()
+
+
 
 
 

@@ -40,10 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #Background Tasks
-
-    'background_task',
-
     #Forms
     'crispy_forms',
 

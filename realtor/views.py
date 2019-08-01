@@ -11,8 +11,6 @@ from .models import Agent, AgentsData
 from .forms import AddAgentForm, AddAgentDataForm
 from users.models import CustomUser
 
-from . import bg_tasks
-
 import json
 
 class AgentView(View):

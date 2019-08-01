@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import View
 from django.views.decorators.http import require_GET
 from django.shortcuts import redirect
@@ -10,6 +10,8 @@ from django.core.paginator import Paginator
 from .models import Agent, AgentsData
 from .forms import AddAgentForm, AddAgentDataForm
 from users.models import CustomUser
+
+from . import bg_tasks
 
 import json
 
@@ -145,6 +147,8 @@ class AgentForm():
         }
         
         return render(request, 'realtor/agents/forms/add_agent_form.html', context)
+
+
 
 
 

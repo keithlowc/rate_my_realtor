@@ -48,5 +48,12 @@ class AgentsData(models.Model):
         verbose_name = "Agent Data"
         verbose_name_plural = "Agent Data"
 
+class Background(models.Model):
+    tweet_id = models.IntegerField()
+    tweet_txt = models.CharField(max_length=5000, blank=False, null=False, default=None)
+
+    def __str__(self):
+        return f'{self.tweet_id}'
+
 
     

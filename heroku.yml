@@ -11,4 +11,4 @@ release:
  command:
    - chmod 755 release.sh && ./release.sh
 run:
- web: gunicorn portfolio.wsgi:application --bind 0.0.0.0:$PORT
+ web: gunicorn rate_me.wsgi:application --bind 0.0.0.0:$PORT

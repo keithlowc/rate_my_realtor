@@ -2,7 +2,7 @@ version: '3'
 
 services:
   database:
-    container_name: portfolio_db
+    container_name: rate_my_realtor_db
     image: postgres:10.1-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/

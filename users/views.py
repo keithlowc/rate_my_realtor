@@ -9,6 +9,9 @@ from django.contrib import messages
 
 from .forms import CustomUserCreationForm
 
+'''
+Controls the signup view with default auth model
+'''
 class SignUpView(SuccessMessageMixin, CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
@@ -18,6 +21,9 @@ class SignUpView(SuccessMessageMixin, CreateView):
         return "Your account has been succesfully created!"
 
 
+'''
+Controls the Login view with default auth model
+'''
 class LoginView(SuccessMessageMixin, AuthLoginView):
     form_class = AuthenticationForm
     success_url = reverse_lazy('landing_page')
@@ -27,11 +33,18 @@ class LoginView(SuccessMessageMixin, AuthLoginView):
         return "You have succesfully logged in!"
 
 
+'''
+Controls the Logout view with default auth model
+'''
 def logout_view(request):
     logout(request)
     messages.info(request, 'Succesfully logged out!')
     return redirect('login')
 
+
+'''
+Controls the Login view with default auth model
+'''
 def rate_me_login(request):
     messages.info(request, 'You need to log in or sign up before being able to rate this realtor!')
     return redirect('login')

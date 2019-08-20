@@ -11,8 +11,11 @@ from .models import Agent, AgentsData
 from .forms import AddAgentForm, AddAgentDataForm
 from users.models import CustomUser
 
-import json
 
+'''
+Class for Agent view, and list view. It allows the user to filter 
+and to search for agents.
+'''
 class AgentView(View):
 
     @require_GET
@@ -127,7 +130,9 @@ class AgentView(View):
         }
         return render(request, 'realtor/agents/list_agents.html', context)
 
-
+'''
+Class for the agent form.
+'''
 class AgentForm():
 
     def add_agent(request):

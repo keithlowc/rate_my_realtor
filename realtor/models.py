@@ -3,7 +3,9 @@ from users.models import CustomUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-
+'''
+Model for Realtor Agencies
+'''
 class RealtorAgency(models.Model):
     name = models.CharField(max_length=100, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -14,7 +16,9 @@ class RealtorAgency(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
+'''
+Model for each agent. It has a foreign key relationship with Realtor Agencies model
+'''
 class Agent(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, default=None)
     last_name = models.CharField(max_length=50, blank=False, null=False, default=None)
@@ -30,6 +34,9 @@ class Agent(models.Model):
     def __str__(self):
         return f'{self.name} from {self.company.name}'
 
+'''
+Model to store data of each agent. Foreign key relationship with Agent model
+'''
 class AgentsData(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     comments = models.TextField(
@@ -47,13 +54,5 @@ class AgentsData(models.Model):
     class meta:
         verbose_name = "Agent Data"
         verbose_name_plural = "Agent Data"
-
-class Background(models.Model):
-    tweet_id = models.IntegerField()
-    tweet_txt = models.CharField(max_length=5000, blank=False, null=False, default=None)
-
-    def __str__(self):
-        return f'{self.tweet_id}'
-
 
     

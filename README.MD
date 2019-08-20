@@ -1,35 +1,75 @@
-To use docker:
+# Rate My Realtor
 
-To ssh in the container:
+Rate my realtor is an application where you can rate and create realtor profiles on demand. This application aims to stop the hassle of getting bad realtors. Rate them and find them all in one!
 
-```docker exec -it "container name" /bin/bash```
 
-To get the logs of the container
+## Docker Initial Instructions:
 
-```docker logs "container name" -f ```
+### To ssh in the container:
 
-Allow permission to the mysql db before you can start working
+```
+docker exec -it "container name" /bin/bash
+```
 
-```docker exec -it "MYSQL container name" /bin/bash```
-```mysql -u root -p```
-```show databases;```
+### To get the logs of the container
+
+```
+docker logs "container name" -f
+```
+
+### Allow permission to the mysql db before you can start working
+
+```
+docker exec -it "MYSQL container name" /bin/bash
+```
+
+```
+mysql -u root -p
+```
+
+```
+show databases;
+```
+
+
 Find the database you want to use and input at the bottom command
-```GRANT ALL PRIVILEGES ON `databse name`.* TO 'web'@'%';```
 
-Note: 'web'@'%' depends on the user you write on the application it self in settings.py
+```
+GRANT ALL PRIVILEGES ON `database name`.* TO 'web'@'%';
+```
 
-After allowing permissions run the following:
+### Note: 'web'@'%' depends on the user you write on the application it self in settings.py
 
-```docker exec -it "container name" /bin/bash```
-```python manage.py migrate```
+### After allowing permissions run the following:
+```
+docker exec -it "container name" /bin/bash
+```
 
-Restart the containers
+```
+python manage.py migrate
+```
 
-```docker-compose down```
-```docker-compose up```
+### To restart the containers
 
-Should be ready to go
+```
+docker-compose down
+```
+```
+docker-compose up
+```
 
-References:
+### Once you have created the application make sure to set the environment variables - For security purposes only
+
+```
+heroku config:set DEBUG=False ALLOWED_HOSTS='*' 
+heroku config:set SECRET_KEY='<SECRET KEY FROM ABOVE>'
+```
+
+## To do:
+
+https://trello.com/b/lubOUyYw/rate-my-realtor
+
+
+### References:
 
 https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/

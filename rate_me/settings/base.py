@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import environ
+
+root = environ.Path(__file__) - 2
+env = environ.Env(DEBUG=(bool, False), )
+env.read_env(env_file=root('.env'))
+
+PRODUCTION_ENV = env.bool('PRODUCTION', default=False)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -86,15 +94,20 @@ WSGI_APPLICATION = 'rate_me.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rate_my_realtor',
-        'USER': 'web',
-        'PASSWORD': 'root',
-        'HOST': 'database',
+if PRODUCTION_ENV:
+    DATABASES = {
+        'default': env.db(default='postgres://postgres:postgres@db:5432/postgres',)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'HOST': 'database',
+            'PORT': 5432  # Default port
+        }
+    }
 
 
 # Password validation
@@ -121,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -133,11 +146,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '../rate_me/static/')
-STATICFILES_DIRS = [
-    BASE_DIR + '/static/admin',
-]
 
 # Crispy forms
 
@@ -157,7 +167,3 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 # Custom User model
 
 AUTH_USER_MODEL = 'users.CustomUser'
-
-# Django background tasks
-
-MAX_ATTEMPTS = 1

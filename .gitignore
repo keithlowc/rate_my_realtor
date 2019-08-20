@@ -1,4 +1,6 @@
-#templates/static/
+templates/static/
+static/
+staticfiles/
 
 #IGNORE AWS.txt
 
